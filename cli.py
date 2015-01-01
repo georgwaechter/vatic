@@ -36,11 +36,12 @@ class extract(Command):
             action="store_true", default = False)
         parser.add_argument("--no-cleanup",
             action="store_true", default=False)
+	parser.add_argument("--fps", default=None, type=int)
         return parser
 
     def __call__(self, args):
         try:
-            os.makedirs(args.output)
+            os.makedirs(args.output, args.fps)
         except:
             pass
         sequence = ffmpeg.extract(args.video)
