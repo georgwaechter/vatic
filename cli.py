@@ -241,13 +241,11 @@ class load(LoadCommand):
                 labelcache[labeltext] = label
                 lastlabel = label
 
-        print "Creating symbolic link..."
+        print "Creating symbolic link if neccessary ..."
         symlink = "public/frames/{0}".format(video.slug)
-        try:
-            os.remove(symlink)
-        except:
-            pass
-        os.symlink(video.location, symlink)
+        
+	if not os.path.exists(symlink):
+	    os.symlink(video.location, symlink)         
 
         print "Creating segments..."
         # create shots and jobs
